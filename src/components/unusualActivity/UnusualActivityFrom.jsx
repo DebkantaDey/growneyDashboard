@@ -46,7 +46,7 @@ export default function UnusualActivityFrom() {
 
     const [editLogo, setEditLogo]=useState('')
     const getUser = () => {
-        axios.get(`https://growney.in/growney/public/index.php/api/unusual-activity/${id}`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/unusual-activity/${id}`)
             .then((item) => {
                 setEditLogo(item.data.data.logo)
                 setProject(item.data.data.project)
@@ -80,7 +80,7 @@ export default function UnusualActivityFrom() {
             redirect: "follow"
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/unusual-activity", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/unusual-activity", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -114,7 +114,7 @@ export default function UnusualActivityFrom() {
     const handleEditRequest = () => {
         setIsLoading(true)
         console.log('Edit form started', id)
-        fetch(`https://growney.in/growney/public/index.php/api/unusual-activity/${id}`, {
+        fetch(`https://rankterminal.com/growney/public/index.php/api/unusual-activity/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

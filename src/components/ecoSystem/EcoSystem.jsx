@@ -21,7 +21,7 @@ export default function EcoSystem() {
 
   const [data, setData] = useState([])
   useEffect(() => {
-    axios.get(`https://growney.in/growney/public/index.php/api/eco-system`)
+    axios.get(`https://rankterminal.com/growney/public/index.php/api/eco-system`)
       .then((response) => {
         setData(response.data.data.collection);
         setIsLoading(false)
@@ -32,7 +32,7 @@ export default function EcoSystem() {
   const handelDelete = async (id) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`https://growney.in/growney/public/index.php/api/eco-system/${id}`, {
+      const response = await fetch(`https://rankterminal.com/growney/public/index.php/api/eco-system/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {

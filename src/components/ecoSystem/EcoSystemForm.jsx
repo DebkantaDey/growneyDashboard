@@ -48,7 +48,7 @@ export default function EcoSystemForm() {
 
     const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
-        axios.get(`https://growney.in/growney/public/index.php/api/eco-system/${id}`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/eco-system/${id}`)
             .then((response) => {
                 setEditLogo(response.data.data.logo)
                 setProject(response.data.data.project)
@@ -80,7 +80,7 @@ export default function EcoSystemForm() {
             redirect: "follow"
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/eco-system", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/eco-system", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -132,7 +132,7 @@ export default function EcoSystemForm() {
         //     });
 
         try {
-            const response = await axios.put(`https://growney.in/growney/public/index.php/api/eco-system/${id}`, formdata, {
+            const response = await axios.put(`https://rankterminal.com/growney/public/index.php/api/eco-system/${id}`, formdata, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

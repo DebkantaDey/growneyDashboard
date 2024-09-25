@@ -19,7 +19,7 @@ export default function Ido_Ieo() {
 
   const [data, setData] = useState([])
   useEffect(() => {
-    axios.get(`https://growney.in/growney/public/index.php/api/ido-ieo`)
+    axios.get(`https://rankterminal.com/growney/public/index.php/api/ido-ieo`)
       .then((response) => {
         setData(response.data.data.collection);
         setIsLoading(false)
@@ -30,7 +30,7 @@ export default function Ido_Ieo() {
   const handelDelete = async (id) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`https://growney.in/growney/public/index.php/api/ido-ieo/${id}`, {
+      const response = await fetch(`https://rankterminal.com/growney/public/index.php/api/ido-ieo/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {

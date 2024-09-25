@@ -47,7 +47,7 @@ export default function UnusualActivityFrom() {
 
     const [editLogo, setEditLogo]=useState('')
     const getUser = () => {
-        axios.get(`https://growney.in/growney/public/index.php/api/killer-project/${id}`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/killer-project/${id}`)
             .then((item) => {
                 setEditLogo(item.data.data.logo)
                 setProject(item.data.data.project)
@@ -82,7 +82,7 @@ export default function UnusualActivityFrom() {
             redirect: "follow"
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/killer-project", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/killer-project", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -116,7 +116,7 @@ export default function UnusualActivityFrom() {
     const handleEditRequest = () => {
         setIsLoading(true)
         console.log('Edit form started', id)
-        fetch(`https://growney.in/growney/public/index.php/api/killer-project/${id}`, {
+        fetch(`https://rankterminal.com/growney/public/index.php/api/killer-project/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -61,7 +61,7 @@ export default function NewProjectForm() {
     const [editLogo, setEditLogo]=useState('')
     const getUser = () => {
         axios
-            .get(`https://growney.in/growney/public/index.php/api/new-project/${id}`)
+            .get(`https://rankterminal.com/growney/public/index.php/api/new-project/${id}`)
             .then((item) => {
                 setEditLogo(item.data.data.logo)
                 setProject(item.data.data.project)
@@ -108,7 +108,7 @@ export default function NewProjectForm() {
             redirect: "follow"
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/new-project", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/new-project", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -142,7 +142,7 @@ export default function NewProjectForm() {
     const handleEditRequest = () => {
         setIsLoading(true)
         console.log('Edit form started', id)
-        fetch(`https://growney.in/growney/public/index.php/api/new-project/${id}`, {
+        fetch(`https://rankterminal.com/growney/public/index.php/api/new-project/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

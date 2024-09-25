@@ -20,7 +20,7 @@ export default function UnusualActivity() {
 
   const [data, setData] = useState([])
   useEffect(() => {
-    axios.get(`https://growney.in/growney/public/index.php/api/unusual-activity?nolimit=1`)
+    axios.get(`https://rankterminal.com/growney/public/index.php/api/unusual-activity?nolimit=1`)
       .then((response) => {
         setData(response.data.data.collection);
         setIsLoading(false)
@@ -31,7 +31,7 @@ export default function UnusualActivity() {
   const handelDelete = async (id) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`https://growney.in/growney/public/index.php/api/unusual-activity/${id}`, {
+      const response = await fetch(`https://rankterminal.com/growney/public/index.php/api/unusual-activity/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {

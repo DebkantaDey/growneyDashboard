@@ -70,7 +70,7 @@ export default function FundingRoundForm() {
 
     const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
-        axios.get(`https://growney.in/growney/public/index.php/api/funding-round/${id}`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`)
             .then((response) => {
                 setUser(response.data.data.collection);
                 console.log(response.data.data)
@@ -113,7 +113,7 @@ export default function FundingRoundForm() {
             redirect: "follow"
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/funding-round", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/funding-round", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -252,7 +252,7 @@ export default function FundingRoundForm() {
         // alert('Data updated successfully!');
         // setIsLoading(false)
 
-        axios.post(`https://growney.in/growney/public/index.php/api/funding-round/${id}`, formdata, {
+        axios.post(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`, formdata, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }

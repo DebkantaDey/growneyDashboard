@@ -61,7 +61,7 @@ export default function IdoForm() {
 
     const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
-        axios.get(`https://growney.in/growney/public/index.php/api/ido-ieo/${id}`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/ido-ieo/${id}`)
             .then((response) => {
                 setEditLogo(response.data.data.logo)
                 setAudits(response.data.data.audits)
@@ -99,7 +99,7 @@ export default function IdoForm() {
             redirect: "follow"
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/ido-ieo", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/ido-ieo", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -141,7 +141,7 @@ export default function IdoForm() {
         formdata.append("audits", audits)
         console.log('Edit form started', id)
 
-        fetch(`https://growney.in/growney/public/index.php/api/ido-ieo/${id}`, {
+        fetch(`https://rankterminal.com/growney/public/index.php/api/ido-ieo/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'multipart/form-data',

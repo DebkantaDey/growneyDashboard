@@ -18,7 +18,7 @@ export default function Airdrop() {
 
     const [data, setData] = useState([])
     useEffect(() => {
-        axios.get(`https://growney.in/growney/public/index.php/api/air-drop`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/air-drop`)
             .then((response) => {
                 setData(response.data.data.collection);
                 setIsLoading(false)
@@ -29,7 +29,7 @@ export default function Airdrop() {
     const handelDelete = async (id) => {
         setIsLoading(true);
         try {
-            const response = await fetch(`https://growney.in/growney/public/index.php/api/air-drop/${id}`, {
+            const response = await fetch(`https://rankterminal.com/growney/public/index.php/api/air-drop/${id}`, {
                 method: "DELETE",
             });
             if (!response.ok) {

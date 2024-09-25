@@ -49,7 +49,7 @@ export default function AirdropForm() {
 
   const [editLogo, setEditLogo] = useState('')
   const getUser = () => {
-    axios.get(`https://growney.in/growney/public/index.php/api/air-drop/${id}`)
+    axios.get(`https://rankterminal.com/growney/public/index.php/api/air-drop/${id}`)
       .then((response) => {
         console.log(response)
         setUser(response.data.data.collection);
@@ -89,7 +89,7 @@ export default function AirdropForm() {
       redirect: "follow"
     };
 
-    fetch("https://growney.in/growney/public/index.php/api/air-drop", requestOptions)
+    fetch("https://rankterminal.com/growney/public/index.php/api/air-drop", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         toast.success('Successfully added!', {
@@ -152,7 +152,7 @@ export default function AirdropForm() {
     formdata.append("heading", heading);
     formdata.append("sub_heading", subHeading);
 
-    fetch(`https://growney.in/growney/public/index.php/api/air-drop/${id}`, {
+    fetch(`https://rankterminal.com/growney/public/index.php/api/air-drop/${id}`, {
       method: 'PUT', 
       body: formdata,
     })

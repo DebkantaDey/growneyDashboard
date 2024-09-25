@@ -20,7 +20,7 @@ export default function FundingRound() {
 
   const [data, setData] = useState([])
   useEffect(() => {
-    axios.get(`https://growney.in/growney/public/index.php/api/funding-round`)
+    axios.get(`https://rankterminal.com/growney/public/index.php/api/funding-round`)
       .then((response) => {
         setData(response.data.data.collection);
         setIsLoading(false)
@@ -30,7 +30,7 @@ export default function FundingRound() {
   const handelDelete = async (id) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`https://growney.in/growney/public/index.php/api/funding-round/${id}`, {
+      const response = await fetch(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {

@@ -72,7 +72,7 @@ export default function NewListingForm() {
 
     const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
-        axios.get(`https://growney.in/growney/public/index.php/api/new-listing/${id}`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/new-listing/${id}`)
             .then((response) => {
                 console.log(response.data.data)
                 setEditLogo(response.data.data.logo)
@@ -172,7 +172,7 @@ export default function NewListingForm() {
             body: formdata,
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/new-listing", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/new-listing", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -307,7 +307,7 @@ export default function NewListingForm() {
         // }
 
 
-        fetch(`https://growney.in/growney/public/index.php/api/new-listing/${id}`, {
+        fetch(`https://rankterminal.com/growney/public/index.php/api/new-listing/${id}`, {
             method: 'PUT', // or 'POST' depending on the API
             body: formdata
         })
@@ -349,7 +349,7 @@ export default function NewListingForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Max Supply</label>
-                    <input type="number" className='block w-full py-2 px-2 rounded' onChange={(e) => setMaxSupply(e.target.value)} value={maxSupply} name='maxSupply' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setMaxSupply(e.target.value)} value={maxSupply} name='maxSupply' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Backed By/Investors</label>

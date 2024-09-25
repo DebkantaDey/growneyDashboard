@@ -51,7 +51,7 @@ export default function HotnewsForm() {
 
     const [editLogo, setEditLogo]=useState('')
     const getUser = () => {
-        axios.get(`https://growney.in/growney/public/index.php/api/hot-news/${id}`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/hot-news/${id}`)
             .then((response) => {
                 console.log(response.data.data)
                 setEditLogo(response.data.data.logo)
@@ -84,7 +84,7 @@ export default function HotnewsForm() {
             redirect: "follow"
         };
 
-        fetch("https://growney.in/growney/public/index.php/api/hot-news", requestOptions)
+        fetch("https://rankterminal.com/growney/public/index.php/api/hot-news", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 toast.success('Successfully added!', {
@@ -118,7 +118,7 @@ export default function HotnewsForm() {
     const handlePutRequest = () => {
         setIsLoading(true)
         console.log('Edit form started', id)
-        fetch(`https://growney.in/growney/public/index.php/api/hot-news/${id}`, {
+        fetch(`https://rankterminal.com/growney/public/index.php/api/hot-news/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

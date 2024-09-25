@@ -34,7 +34,7 @@ const ImageForm = ({ data, onUpdate, onPost }) => {
 
         const isUpdate = Boolean(data?.id);
         const apiMethod = isUpdate ? 'put' : 'post';
-        const apiUrl = isUpdate ? `https://growney.in/growney/public/index.php/api/new-listing/${data.id}` : 'https://growney.in/growney/public/index.php/api/new-listing';
+        const apiUrl = isUpdate ? `https://rankterminal.com/growney/public/index.php/api/new-listing/${data.id}` : 'https://rankterminal.com/growney/public/index.php/api/new-listing';
 
         // axios[apiMethod](apiUrl, formData, {
         //   headers: {

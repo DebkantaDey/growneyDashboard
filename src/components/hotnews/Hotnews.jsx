@@ -17,7 +17,7 @@ export default function Hotnews() {
 
     const [data, setApiData] = useState([])
     useEffect(() => {
-        axios.get(`https://growney.in/growney/public/index.php/api/hot-news`)
+        axios.get(`https://rankterminal.com/growney/public/index.php/api/hot-news`)
             .then((response) => {
                 setApiData(response.data.data.collection);
                 setIsLoading(false)
@@ -28,7 +28,7 @@ export default function Hotnews() {
     const handelDelete = async (id) => {
         setIsLoading(true);
         try {
-            const response = await fetch(`https://growney.in/growney/public/index.php/api/hot-news/${id}`, {
+            const response = await fetch(`https://rankterminal.com/growney/public/index.php/api/hot-news/${id}`, {
                 method: "DELETE",
             });
             if (!response.ok) {
