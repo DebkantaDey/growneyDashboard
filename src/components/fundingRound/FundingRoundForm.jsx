@@ -62,7 +62,7 @@ export default function FundingRoundForm() {
 
 
     useEffect(() => {
-        if (id !== '' || id !== null) {
+        if (id !== undefined) {
             setIsLoading(true)
             getUser();
         }
@@ -88,7 +88,7 @@ export default function FundingRoundForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (id === '' || id === null || id === 0 || id == undefined) {
+        if (id == '' || id == null || id == 0 || id == undefined) {
             handlePostRequest();
         } else {
             handlePutRequest();
@@ -96,7 +96,7 @@ export default function FundingRoundForm() {
     };
 
     const handlePostRequest = () => {
-        setIsLoading(true)
+        console.log("Post method called.")
         const formdata = new FormData();
         formdata.append("logo", logo);
         formdata.append("created_on", date);
@@ -139,18 +139,20 @@ export default function FundingRoundForm() {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    transition: Bounce,
+                    transition: 'Bounce',
                 }));
     };
 
     const handlePutRequest = async () => {
 
-        if (logo) {
-            console.log("logo", logo)
-        }
-        else {
-            console.log("logo", editLogo)
-        }
+        // if (logo) {
+        //     console.log("logo", logo)
+        // }
+        // else {
+        //     console.log("logo", editLogo)
+        // }
+        console.log("Put method called")
+        setIsLoading(true)
         console.log("partners", partners)
         console.log("investors", investors)
         console.log("date", date)

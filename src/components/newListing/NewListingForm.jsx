@@ -175,22 +175,36 @@ export default function NewListingForm() {
         fetch("https://rankterminal.com/growney/public/index.php/api/new-listing", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                toast.success('Successfully added!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                if(result.status==true){
+                    toast.success('Successfully added!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: 'Bounce',
+                    })
+                }
+                else{
+                    toast.error("An error occured.", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: 'Bounce',
+                    })
+                }
                 setIsLoading(false)
-                console.log(result)
             })
             .catch((error) => {
-                toast.error("Cant't added data", {
+                toast.error(error, {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -201,7 +215,6 @@ export default function NewListingForm() {
                     theme: "light",
                     transition: "Bounce",
                 })
-                console.log(error);
             });
 
     };
@@ -380,71 +393,3 @@ export default function NewListingForm() {
         </div>
     )
 }
-
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import ImageForm from './ImageForm';
-// import { useParams, useNavigate } from "react-router-dom";
-
-
-
-// const NewListingForm = () => {
-//     const [data, setData] = useState([]);
-//     const [loading, setLoading] = useState(true);
-//     const { id } = useParams();
-
-//     useEffect(() => {
-//         // Fetch the initial data from the API
-//         // axios.get(`https://growney.in/growney/public/index.php/api/new-listing/${id}`)
-//         //     .then(response => {
-//         //         setData(response.data);
-//         //         setLoading(false);
-//         //     })
-//         //     .catch(error => {
-//         //         console.error('Error fetching the data:', error);
-//         //         setLoading(false);
-//         //     });
-//         axios.get(`https://growney.in/growney/public/index.php/api/new-listing/${id}`)
-//             .then((response) => {
-//                 setData(response.data.data);
-//                 console.log(response.data.data)
-//                 setLoading(false);
-//             })
-//             .catch(error => {
-//                         console.error('Error fetching the data:', error);
-//                         setLoading(false);
-//                     });
-//     }, []);
-
-//     const handleUpdate = (updatedItem) => {
-//         setData(data.map(item => (item.id === updatedItem.id ? updatedItem : item)));
-//     };
-
-//     const handlePost = (newItem) => {
-//         setData([...data, newItem]);
-//     };
-
-//     return (
-//         <div className="App">
-//             <h1>Image Data</h1>
-//             {loading ?
-//                 <p>Loading...</p>
-//                 :
-//                 <>
-//                     {data?.map(item =>
-//                         <div key={item.id}>
-//                             <img src={`data:image/jpeg;base64,${item.logo}`} alt={item.name} />
-//                             <ImageForm data={item} onUpdate={handleUpdate} />
-//                         </div>
-//                     )}
-//                     <ImageForm onPost={handlePost} />
-//                 </>
-//             }
-//         </div>
-//     );
-// }
-
-// export default NewListingForm;
