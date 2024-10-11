@@ -146,11 +146,19 @@ export default function UnusualActivityFrom() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} value={project} name='project' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} value={project} name='project' placeholder='Enter the project'/>
+                </div>
+                <div className='mb-3'>
+                    <label htmlFor="" className='block text-white'>Socials</label>
+                    <div className='flex justify-between items-center gap-1'>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                    </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Activities</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('activities', e)} value={activities} name='activities' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('activities', e)} value={activities} name='activities' placeholder='Enter the activities'/>
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

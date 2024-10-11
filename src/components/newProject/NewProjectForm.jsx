@@ -175,23 +175,31 @@ export default function NewProjectForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project}/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project'/>
+                </div>
+                <div className='mb-3'>
+                    <label htmlFor="" className='block text-white'>Socials</label>
+                    <div className='flex justify-between items-center gap-1'>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                    </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Category</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('category', e)} name='category' value={category}/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('category', e)} name='category' value={category} placeholder='Enter the category'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Total Raise</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('totalRaise', e)} name='totalRaise' value={totalRaise}/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('totalRaise', e)} name='totalRaise' value={totalRaise} placeholder='Enter the total raise'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Round</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('round', e)} name='round' value={round}/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('round', e)} name='round' value={round} placeholder='Enter the round'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>	Investors</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('investors', e)} name='investors' value={investors}/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('investors', e)} name='investors' value={investors} placeholder='Enter the investors'/>
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

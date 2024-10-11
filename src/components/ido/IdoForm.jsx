@@ -174,23 +174,31 @@ export default function IdoForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project'/>
+                </div>
+                <div className='mb-3'>
+                    <label htmlFor="" className='block text-white'>Socials</label>
+                    <div className='flex justify-between items-center gap-1'>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                    </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Backedby</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('backedby', e)} name='backedby' value={backedby} />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('backedby', e)} name='backedby' value={backedby} placeholder='Enter the bacedby'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Partners</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('partners', e)} name='partners' value={partners} />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('partners', e)} name='partners' value={partners} placeholder='Enter the partners'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Coin/Token Sale Partnars</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('coin', e)} name='coin' value={coin} />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('coin', e)} name='coin' value={coin} placeholder='Enter the coin/toen'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>	Audits</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('audits', e)} name='audits' value={audits} />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('audits', e)} name='audits' value={audits} placeholder='Enter the audits'/>
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

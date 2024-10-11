@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { ColorRing } from 'react-loader-spinner'
-
+import Socials from '../socials/Socials';
 
 export default function Ido_Ieo() {
 
@@ -110,6 +110,7 @@ export default function Ido_Ieo() {
               <thead className='sticky top-0 border-b-2 border-b-white'>
                 <tr>
                   <th className='text-left whitespace-nowrap sticky left-0 px-5 bg-slate-600' style={{ minWidth: '150px' }}>Project</th>
+                  <th className='text-left'>Socials</th>
                   <th className='text-left whitespace-nowrap px-6' style={{minWidth: 'auto'}}>Backedby</th>
                   <th className='text-left whitespace-nowrap px-6' style={{minWidth: 'auto'}}>Partners</th>
                   <th className='text-left whitespace-nowrap px-6' style={{minWidth: 'auto'}}>Coin/Token Sale Partnars</th>
@@ -121,7 +122,9 @@ export default function Ido_Ieo() {
                 {data?.map(item =>
                   <tr className='text-white' key={item.id}>
                     <td className="flex sticky left-0 gap-x-2.5 items-center pt-2 px-2.5"  style={{ minWidth: '150px' }}><img src={item.logo} className="h-10 w-10 rounded-full"></img><span className='whitespace-nowrap'>{item.project.length > 9 && screenSize.width > 1000 ?
-                      item.project.substring(0, 9) + "..." : item.project.length > 6 && screenSize.width < 1000 ? item.project.substring(0, 5) + "..." : item.project}</span></td>
+                      item.project.substring(0, 9) + "..." : item.project.length > 6 && screenSize.width < 1000 ? item.project.substring(0, 5) + "..." : item.project}</span>
+                    </td>
+                    <td><Socials/></td>
                     <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item.backed_by}</td>
                     <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item.partners}</td>
                     <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item.coin_token_sale_partner}</td>

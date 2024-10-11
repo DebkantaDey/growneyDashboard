@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { ColorRing } from 'react-loader-spinner'
-
+import Socials from '../socials/Socials';
 
 export default function EcoSystem() {
 
@@ -111,6 +111,7 @@ export default function EcoSystem() {
               <thead className='sticky top-0 border-b-2 border-b-white'>
                 <tr>
                   <th className='sticky left-0 px-5 text-left bg-slate-600' style={{ minWidth: '180px' }}>Name</th>
+                  <th className='text-left'>Socials</th>
                   <th className='px-5 text-left' style={{ minWidth: '200px' }}>Project</th>
                   <th className='text-left' style={{ width: 'auto' }}></th>
                 </tr>
@@ -123,6 +124,7 @@ export default function EcoSystem() {
                       <span className='whitespace-nowrap'>{item.name.length > 9 && screenSize.width > 1000 ?
                         item.name.substring(0, 9) + "..." : item.name.length > 6 && screenSize.width < 1000 ? item.name.substring(0, 5) + "..." : item.name}</span>
                     </td>
+                    <td><Socials/></td>
                     <td className='whitespace-nowrap cursor-auto px-5' style={{ minWidth: '200px' }}>{item.project}</td>
                     <td className='text-left' style={{ width: 'auto' }}><Link to={`/ecoSystemForm/${item.id}`}><i className="fas fa-edit mr-2 text-green-600"></i></Link><i className="fa-solid fa-trash text-red-600" onClick={() => handelDelete(item.id)}></i></td>
                   </tr>

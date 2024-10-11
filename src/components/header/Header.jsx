@@ -26,7 +26,7 @@ export default function Header() {
     {
       id: 2,
       to: "/newProject",
-      name: "NewProject"
+      name: "NewlyProject"
     },
     {
       to: "/airdrop",

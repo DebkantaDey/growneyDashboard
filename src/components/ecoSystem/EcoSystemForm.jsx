@@ -14,7 +14,7 @@ export default function EcoSystemForm() {
     const [preview, setPreview] = useState('')
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const { id } = useParams();
 
     const setData = (type, e) => {
@@ -99,8 +99,8 @@ export default function EcoSystemForm() {
             .catch((error) => console.error(error));
     };
 
-    const handlePutRequest = async() => {
-
+    const handlePutRequest = async () => {
+        console.log('Handle update request.')
         console.log(logo)
         console.log(name)
         console.log(project)
@@ -114,7 +114,7 @@ export default function EcoSystemForm() {
             method: "PUT",
             body: formdata,
         };
-       
+
         console.log('Edit form started', id)
         // fetch(`https://growney.in/growney/public/index.php/api/eco-system/${id}`, requestOptions)
         //     .then((response) => response.json())
@@ -133,16 +133,16 @@ export default function EcoSystemForm() {
 
         try {
             const response = await axios.put(`https://rankterminal.com/growney/public/index.php/api/eco-system/${id}`, formdata, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
             console.log('Response:', response.data);
             setIsLoading(false)
-          } catch (error) {
+        } catch (error) {
             console.error('Error uploading data:', error);
             setIsLoading(false)
-          }
+        }
     };
     return (
 
@@ -155,11 +155,19 @@ export default function EcoSystemForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Name</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('name', e)} value={name} name='name' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('name', e)} value={name} name='name' placeholder='Enter the name'/>
+                </div>
+                <div className='mb-3'>
+                    <label htmlFor="" className='block text-white'>Socials</label>
+                    <div className='flex justify-between items-center gap-1'>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                    </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} value={project} name='project' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} value={project} name='project' placeholder='Enter the project'/>
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

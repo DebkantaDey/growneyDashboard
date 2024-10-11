@@ -346,23 +346,27 @@ export default function NewListingForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Name</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setName(e.target.value)} value={name} name='name' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setName(e.target.value)} value={name} name='name' placeholder='Enter the name'/>
                 </div>
                 <div className='mb-3'>
-                    <label htmlFor="" className='block text-white'>Date</label>
-                    <input type="date" className='block w-full py-2 px-2 rounded' onChange={(e) => setDate(e.target.value)} value={date} name='date' />
+                    <label htmlFor="" className='block text-white'>Socials</label>
+                    <div className='flex justify-between items-center gap-1'>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                    </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Category</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setCategory(e.target.value)} value={category} name='category' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setCategory(e.target.value)} value={category} name='category' placeholder='Enter the category'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Network</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setNetwork(e.target.value)} value={network} name='network' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setNetwork(e.target.value)} value={network} name='network' placeholder='Enter the network'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Max Supply</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setMaxSupply(e.target.value)} value={maxSupply} name='maxSupply' />
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setMaxSupply(e.target.value)} value={maxSupply} name='maxSupply' placeholder='Enter the max supply'/>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Backed By/Investors</label>

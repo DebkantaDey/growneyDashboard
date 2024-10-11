@@ -176,11 +176,11 @@ export default function AirdropForm() {
         </div>
         <div className='mb-3'>
           <label htmlFor="" className='block text-white'>Heading</label>
-          <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setApiData('heading', e)} name='heading' value={heading} />
+          <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setApiData('heading', e)} name='heading' value={heading} placeholder='Enter the heading'/>
         </div>
         <div className='mb-3'>
           <label htmlFor="" className='block text-white'>Sub Heading</label>
-          <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setApiData('subHeading', e)} name='sub_heading' value={subHeading} />
+          <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setApiData('subHeading', e)} name='sub_heading' value={subHeading} placeholder='Enter the subheading'/>
         </div>
         <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x' type='submit'>Submit</button>
       </form>

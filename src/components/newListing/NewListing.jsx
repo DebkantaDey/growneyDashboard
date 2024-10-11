@@ -4,7 +4,7 @@ import axios from 'axios';
 import ImagesGroup from './ImagesGroup';
 import { toast } from 'react-toastify';
 import { ColorRing } from 'react-loader-spinner'
-
+import Socials from '../socials/Socials';
 
 export default function NewListing() {
 
@@ -112,7 +112,8 @@ export default function NewListing() {
               <thead className="sticky top-0 border-b-2 border-b-white">
                 <tr className="size w-full">
                   <th scope="col" className="sticky left-0 px-5 text-left bg-slate-600" style={{ minWidth: '150px' }}>Name</th>
-                  <th scope="col" className='text-left px-5' style={{ minWidth: 'auto' }}>Date</th>
+                  {/* <th scope="col" className='text-left px-5' style={{ minWidth: 'auto' }}>Date</th> */}
+                  <th className='text-left'>Socials</th>
                   <th scope="col" className='text-left whitespace-nowrap px-5' style={{ minWidth: 'auto' }}>Backed by / investors</th>
                   <th scope="col" className='text-left px-5' style={{ minWidth: 'auto' }}>Category</th>
                   <th scope="col" className='text-left px-5' style={{ minWidth: 'auto' }}>Network</th>
@@ -126,6 +127,7 @@ export default function NewListing() {
                     <td className="flex sticky left-0  gap-x-2.5 items-center pt-2 px-5 bg-slate-600" style={{ minWidth: '150px', zIndex: 1 }}><img src={item.logo} className="h-10 w-10 rounded-full"></img><span className='whitespace-nowrap'>{item.name.length > 9 && screenSize.width > 1000 ?
                       item.name.substring(0, 9) + "..." : item.name.length > 6 && screenSize.width < 1000 ? item.name.substring(0, 5) + "..." : item.name}</span>
                     </td>
+                    <td><Socials/></td>
                     <td className='whitespace-nowrap cursor-auto px-5' style={{minWidth: 'auto'}}>{item.created_on}</td>
                     <td className=" whitespace-nowrap cursor-auto px-5" style={{minWidth: 'auto'}}><ImagesGroup images={item.investors} /></td>
                     <td className='whitespace-nowrap cursor-auto px-5' style={{minWidth: 'auto'}}>{item.category}</td>
