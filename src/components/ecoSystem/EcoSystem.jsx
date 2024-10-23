@@ -36,31 +36,33 @@ export default function EcoSystem() {
         method: "DELETE",
       });
       if (!response.ok) {
-        toast.error('Deletation failed', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: 'Bounce',
-        })
+        // toast.error('Deletation failed', {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: 'Bounce',
+        // })
+        alert("Deletation failed")
         throw new Error("Failed to delete item");
       }
       else {
-        toast.success('Successfully deleted!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: 'Bounce',
-        })
+        // toast.success('Successfully deleted!', {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: 'Bounce',
+        // })
+        alert("Successfully deleted!")
       }
       setData(data.filter((item) => item.id !== id));
       setIsLoading(false)
@@ -90,6 +92,35 @@ export default function EcoSystem() {
     };
   }, []);
   //****************Window size start*********************//
+
+
+
+  // //************Delete Snacks************//
+  // const [state, setState] = useState({
+  //   open: false,
+  //   vertical: 'top',
+  //   horizontal: 'center',
+  // });
+  // const { vertical, horizontal, open } = state;
+
+  // const handleClick = (newState) => () => {
+  //   setState({ ...newState, open: true });
+  // };
+
+  // const handleClose = () => {
+  //   setState({ ...state, open: false });
+  // };
+  // const buttons = (
+  //   <React.Fragment>
+  //     <Grid container sx={{ justifyContent: 'center' }}>
+  //       <Grid item xs={6} sx={{ textAlign: 'right' }}>
+  //         <Button onClick={handleClick({ vertical: 'top', horizontal: 'right' })}>
+  //           <i className="fa-solid fa-trash text-red-600"></i>
+  //         </Button>
+  //       </Grid>
+  //     </Grid>
+  //   </React.Fragment>
+  // );
   return (
     <>
       {isLoading ?
@@ -120,12 +151,12 @@ export default function EcoSystem() {
                 {data?.map((item) =>
                   <tr className='text-white' key={item.id}>
                     <td className="flex sticky left-0 gap-x-2.5 items-center pt-2 px-2.5 whitespace-nowrap cursor-auto bg-slate-600" style={{ minWidth: '180px' }}>
-                      <img src={item.logo} className="h-10 w-10 rounded-full"></img>
-                      <span className='whitespace-nowrap'>{item.name.length > 9 && screenSize.width > 1000 ?
-                        item.name.substring(0, 9) + "..." : item.name.length > 6 && screenSize.width < 1000 ? item.name.substring(0, 5) + "..." : item.name}</span>
+                      <img src={item?.logo} className="h-10 w-10 rounded-full"></img>
+                      <span className='whitespace-nowrap'>{item?.name.length > 9 && screenSize.width > 1000 ?
+                        item?.name.substring(0, 9) + "..." : item?.name.length > 6 && screenSize.width < 1000 ? item.name.substring(0, 5) + "..." : item?.name}</span>
                     </td>
-                    <td><Socials/></td>
-                    <td className='whitespace-nowrap cursor-auto px-5' style={{ minWidth: '200px' }}>{item.project}</td>
+                    <td><Socials socials={item?.share} /></td>
+                    <td className='whitespace-nowrap cursor-auto px-5' style={{ minWidth: '200px' }}>{item?.project}</td>
                     <td className='text-left' style={{ width: 'auto' }}><Link to={`/ecoSystemForm/${item.id}`}><i className="fas fa-edit mr-2 text-green-600"></i></Link><i className="fa-solid fa-trash text-red-600" onClick={() => handelDelete(item.id)}></i></td>
                   </tr>
                 )}

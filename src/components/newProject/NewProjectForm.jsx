@@ -14,6 +14,9 @@ export default function NewProjectForm() {
     const [round, setRound] = useState('')
     const [investors, setInvestors] = useState('')
     const [preview, setPreview] = useState('')
+    const [website, setWebsite] = useState('')
+    const [telegram, setTelegram] = useState('')
+    const [twitter, setTwitter] = useState('')
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +41,15 @@ export default function NewProjectForm() {
             case 'investors':
                 setInvestors(e.target.value);
                 break;
-            default:
+                case 'website':
+                    setWebsite(e.target.value);
+                    break;
+                case 'telegram':
+                    setTelegram(e.target.value);
+                    break;
+                case 'twitter':
+                    setTwitter(e.target.value);
+                    break;
         }
     }
 
@@ -70,10 +81,8 @@ export default function NewProjectForm() {
                 setRound(item.data.data.round)
                 setInvestors(item.data.data.investors)
                 setIsLoading(false)
-                console.log(item.data.data)
             })
             .catch((err) => {
-                console.log(err);
             });
     };
 
@@ -88,12 +97,6 @@ export default function NewProjectForm() {
 
     const handleAddRequest = () => {
         setIsLoading(true)
-        console.log("logo", logo);
-        console.log("project", project);
-        console.log("category", category);
-        console.log("total_raise", totalRaise);
-        console.log("round", round);
-        console.log("investors", investors);
         const formdata = new FormData();
         formdata.append("logo", logo);
         formdata.append("project", project);
@@ -101,6 +104,9 @@ export default function NewProjectForm() {
         formdata.append("total_raise", totalRaise);
         formdata.append("round", round);
         formdata.append("investors", investors);
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
 
         const requestOptions = {
             method: "POST",
@@ -111,37 +117,38 @@ export default function NewProjectForm() {
         fetch("https://rankterminal.com/growney/public/index.php/api/new-project", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                toast.success('Successfully added!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                // toast.success('Successfully added!', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert('Successfully deleted!')
                 setIsLoading(false)
             })
             .catch((error) =>
-                toast.error("Cant't added data", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                })
+                // toast.error("Cant't added data", {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: Bounce,
+                // })
+                alert("Cant't added data")
             );
     };
 
     const handleEditRequest = () => {
         setIsLoading(true)
-        console.log('Edit form started', id)
         fetch(`https://rankterminal.com/growney/public/index.php/api/new-project/${id}`, {
             method: 'PUT',
             headers: {
@@ -151,7 +158,6 @@ export default function NewProjectForm() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Success:', data);
                 // Reset form and state after successful PUT request
                 setLogo('')
                 setProject('')
@@ -180,9 +186,9 @@ export default function NewProjectForm() {
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)}/>
                     </div>
                 </div>
                 <div className='mb-3'>

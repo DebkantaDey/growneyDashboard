@@ -53,7 +53,6 @@ export default function HotnewsForm() {
     const getUser = () => {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/hot-news/${id}`)
             .then((response) => {
-                console.log(response.data.data)
                 setEditLogo(response.data.data.logo)
                 setHeading(response.data.data.heading)
                 setSubHeading(response.data.data.sub_heading)
@@ -87,37 +86,38 @@ export default function HotnewsForm() {
         fetch("https://rankterminal.com/growney/public/index.php/api/hot-news", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                toast.success('Successfully added!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                // toast.success('Successfully added!', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert('Successfully added!')
                 setIsLoading(false)
             })
             .catch((error) =>
-                toast.error("Cant't added data", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                })
+                // toast.error("Cant't added data", {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: Bounce,
+                // })
+                alert("Cant't added data")
             );
     };
 
     const handlePutRequest = () => {
         setIsLoading(true)
-        console.log('Edit form started', id)
         fetch(`https://rankterminal.com/growney/public/index.php/api/hot-news/${id}`, {
             method: 'PUT',
             headers: {
@@ -127,7 +127,6 @@ export default function HotnewsForm() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Success:', data);
                 // Reset form and state after successful PUT request
                 setLogo('')
                 setHeading('')

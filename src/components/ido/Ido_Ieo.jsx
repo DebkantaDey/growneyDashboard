@@ -34,31 +34,33 @@ export default function Ido_Ieo() {
         method: "DELETE",
       });
       if (!response.ok) {
-        toast.error('Deletation failed', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: 'Bounce',
-        })
+        // toast.error('Deletation failed', {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: 'Bounce',
+        // })
+        alert('Deletation failed')
         throw new Error("Failed to delete item");
       }
       else {
-        toast.success('Successfully deleted!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: 'Bounce',
-        })
+        // toast.success('Successfully deleted!', {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: 'Bounce',
+        // })
+        alert('Successfully deleted!')
       }
       setData(data.filter((item) => item.id !== id));
       setIsLoading(false)
@@ -121,15 +123,15 @@ export default function Ido_Ieo() {
               <tbody>
                 {data?.map(item =>
                   <tr className='text-white' key={item.id}>
-                    <td className="flex sticky left-0 gap-x-2.5 items-center pt-2 px-2.5"  style={{ minWidth: '150px' }}><img src={item.logo} className="h-10 w-10 rounded-full"></img><span className='whitespace-nowrap'>{item.project.length > 9 && screenSize.width > 1000 ?
-                      item.project.substring(0, 9) + "..." : item.project.length > 6 && screenSize.width < 1000 ? item.project.substring(0, 5) + "..." : item.project}</span>
+                    <td className="flex sticky left-0 gap-x-2.5 items-center pt-2 px-2.5"  style={{ minWidth: '150px' }}><img src={item?.logo} className="h-10 w-10 rounded-full"></img><span className='whitespace-nowrap'>{item?.project.length > 9 && screenSize.width > 1000 ?
+                      item?.project.substring(0, 9) + "..." : item?.project.length > 6 && screenSize.width < 1000 ? item?.project.substring(0, 5) + "..." : item?.project}</span>
                     </td>
-                    <td><Socials/></td>
-                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item.backed_by}</td>
-                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item.partners}</td>
-                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item.coin_token_sale_partner}</td>
-                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item.audits}</td>
-                    <td className='text-left w-14'><Link to={`/idoForm/${item.id}`}><i className="fas fa-edit mr-2 text-green-600"></i></Link><i className="fa-solid fa-trash text-red-600" onClick={() => handelDelete(item.id)}></i></td>
+                    <td><Socials socials={item?.share}/></td>
+                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item?.backed_by}</td>
+                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item?.partners}</td>
+                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item?.coin_token_sale_partner}</td>
+                    <td className='whitespace-nowrap cursor-auto px-6' style={{minWidth: 'auto'}}>{item?.audits}</td>
+                    <td className='text-left w-14'><Link to={`/idoForm/${item?.id}`}><i className="fas fa-edit mr-2 text-green-600"></i></Link><i className="fa-solid fa-trash text-red-600" onClick={() => handelDelete(item?.id)}></i></td>
                   </tr>
                 )}
               </tbody>

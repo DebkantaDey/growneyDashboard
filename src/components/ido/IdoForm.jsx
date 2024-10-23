@@ -14,6 +14,9 @@ export default function IdoForm() {
     const [coin, setCoin] = useState('')
     const [audits, setAudits] = useState('')
     const [preview, setPreview] = useState('')
+    const [website, setWebsite] = useState('')
+    const [telegram, setTelegram] = useState('')
+    const [twitter, setTwitter] = useState('')
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +41,15 @@ export default function IdoForm() {
             case 'audits':
                 setAudits(e.target.value);
                 break;
-            default:
+            case 'website':
+                setWebsite(e.target.value);
+                break;
+            case 'twitter':
+                setTwitter(e.target.value);
+                break
+            case 'telegram':
+                setTelegram(e.target.value);
+                break
         }
     }
 
@@ -69,7 +80,6 @@ export default function IdoForm() {
                 setCoin(response.data.data.coin_token_sale_partner)
                 setPartners(response.data.data.partners)
                 setProject(response.data.data.project)
-                console.log(response.data.data)
                 setIsLoading(false)
             })
     };
@@ -92,6 +102,9 @@ export default function IdoForm() {
         formdata.append("partners", partners);
         formdata.append("coin_token_sale_partner", coin);
         formdata.append("audits", audits);
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
 
         const requestOptions = {
             method: "POST",
@@ -102,31 +115,33 @@ export default function IdoForm() {
         fetch("https://rankterminal.com/growney/public/index.php/api/ido-ieo", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                toast.success('Successfully added!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                // toast.success('Successfully added!', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert('Successfully added!')
                 setIsLoading(false)
             })
             .catch((error) =>
-                toast.error("Cant't added data", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                })
+                // toast.error("Cant't added data", {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: Bounce,
+                // })
+                alert("Cant't added data")
             );
     };
 
@@ -139,7 +154,6 @@ export default function IdoForm() {
         formdata.append("partners", partners)
         formdata.append("coin_token_sale_partner", coin)
         formdata.append("audits", audits)
-        console.log('Edit form started', id)
 
         fetch(`https://rankterminal.com/growney/public/index.php/api/ido-ieo/${id}`, {
             method: 'PUT',
@@ -150,7 +164,6 @@ export default function IdoForm() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Success:', data);
                 // Reset form and state after successful PUT request
                 setLogo('')
                 setProject('')
@@ -174,31 +187,31 @@ export default function IdoForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)}/>
                     </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Backedby</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('backedby', e)} name='backedby' value={backedby} placeholder='Enter the bacedby'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('backedby', e)} name='backedby' value={backedby} placeholder='Enter the bacedby' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Partners</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('partners', e)} name='partners' value={partners} placeholder='Enter the partners'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('partners', e)} name='partners' value={partners} placeholder='Enter the partners' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Coin/Token Sale Partnars</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('coin', e)} name='coin' value={coin} placeholder='Enter the coin/toen'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('coin', e)} name='coin' value={coin} placeholder='Enter the coin/toen' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>	Audits</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('audits', e)} name='audits' value={audits} placeholder='Enter the audits'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('audits', e)} name='audits' value={audits} placeholder='Enter the audits' />
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

@@ -34,31 +34,33 @@ export default function Airdrop() {
                 method: "DELETE",
             });
             if (!response.ok) {
-                toast.error('Deletation failed', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                // toast.error('Deletation failed', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert('Deletation failed')
                 throw new Error("Failed to delete item");
             }
             else {
-                toast.success('Successfully deleted!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                // toast.success('Successfully deleted!', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert('Successfully deleted!')
             }
             setData(data.filter((item) => item.id !== id));
             setIsLoading(false)

@@ -16,6 +16,9 @@ export default function FundingRoundForm() {
     const [raised, setRaised] = useState('')
     const [category, setCategory] = useState('')
     const [preview, setPreview] = useState('')
+    const [website, setWebsite] = useState('')
+    const [telegram, setTelegram] = useState('')
+    const [twitter, setTwitter] = useState('')
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +49,15 @@ export default function FundingRoundForm() {
             case 'category':
                 setCategory(e.target.value);
                 break;
-            default:
+            case 'website':
+                setWebsite(e.target.value);
+                break;
+            case 'telegram':
+                setTelegram(e.target.value);
+                break;
+            case 'twitter':
+                setTwitter(e.target.value);
+                break;
         }
     }
 
@@ -73,7 +84,6 @@ export default function FundingRoundForm() {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`)
             .then((response) => {
                 setUser(response.data.data.collection);
-                console.log(response.data.data)
                 setCategory(response.data.data.category)
                 setDate(response.data.data.created_on)
                 setInvestors(response.data.data.investors)
@@ -96,7 +106,6 @@ export default function FundingRoundForm() {
     };
 
     const handlePostRequest = () => {
-        console.log("Post method called.")
         const formdata = new FormData();
         formdata.append("logo", logo);
         formdata.append("created_on", date);
@@ -106,6 +115,9 @@ export default function FundingRoundForm() {
         formdata.append("investors", investors);
         formdata.append("raised", raised);
         formdata.append("category", category);
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
 
         const requestOptions = {
             method: "POST",
@@ -116,50 +128,39 @@ export default function FundingRoundForm() {
         fetch("https://rankterminal.com/growney/public/index.php/api/funding-round", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                toast.success('Successfully added!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                // toast.success('Successfully added!', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert('Successfully added!')
                 setIsLoading(false)
             })
             .catch((error) =>
-                toast.error("Cant't added data", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                }));
+                // toast.error("Cant't added data", {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert("Cant't added data")
+                );
     };
 
     const handlePutRequest = async () => {
 
-        // if (logo) {
-        //     console.log("logo", logo)
-        // }
-        // else {
-        //     console.log("logo", editLogo)
-        // }
-        console.log("Put method called")
         setIsLoading(true)
-        console.log("partners", partners)
-        console.log("investors", investors)
-        console.log("date", date)
-        console.log("rounds", stage);
-        console.log("raised", raised)
-        console.log("category", category)
-
 
         const formdata = new FormData();
         if (logo !== '') {
@@ -176,9 +177,6 @@ export default function FundingRoundForm() {
         formdata.append("raised", raised);
         formdata.append("category", category)
 
-
-        // setIsLoading(true)
-        console.log('Edit form started', id)
 
 
         // fetch(`https://growney.in/growney/public/index.php/api/funding-round/${id}`, {
@@ -256,19 +254,18 @@ export default function FundingRoundForm() {
 
         axios.post(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`, formdata, {
             headers: {
-              'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data'
             }
-          })
+        })
             .then(response => {
-              console.log(response);
-              if (response) {
-                alert('Data updated successfully!');
-              } else {
-                alert('There was an error updating the data.');
-              }
+                if (response) {
+                    alert('Data updated successfully!');
+                } else {
+                    alert('There was an error updating the data.');
+                }
             })
             .catch(error => {
-              console.error('There was an error submitting the form!', error);
+                console.error('There was an error submitting the form!', error);
             });
 
 
@@ -284,14 +281,14 @@ export default function FundingRoundForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)}/>
                     </div>
                 </div>
                 <div className='mb-3'>
@@ -300,23 +297,23 @@ export default function FundingRoundForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Stage/Rounds</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('stage', e)} name='rounds' value={stage} placeholder='Enter the stage/rounds'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('stage', e)} name='rounds' value={stage} placeholder='Enter the stage/rounds' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Partners</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('partners', e)} name='partners' value={partners} placeholder='Enter the partners'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('partners', e)} name='partners' value={partners} placeholder='Enter the partners' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Investors/VCs</label>
-                    <input type="number" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('investors', e)} name='investors' value={investors} placeholder='Enter the investors numbers'/>
+                    <input type="number" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('investors', e)} name='investors' value={investors} placeholder='Enter the investors numbers' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Raised</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('raised', e)} name='raised' value={raised} placeholder='Enter the raised'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('raised', e)} name='raised' value={raised} placeholder='Enter the raised' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Category</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('category', e)} name='category' value={category} placeholder='Enter the category'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('category', e)} name='category' value={category} placeholder='Enter the category' />
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

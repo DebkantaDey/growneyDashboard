@@ -51,7 +51,6 @@ export default function AirdropForm() {
   const getUser = () => {
     axios.get(`https://rankterminal.com/growney/public/index.php/api/air-drop/${id}`)
       .then((response) => {
-        console.log(response)
         setUser(response.data.data.collection);
         setEditLogo(response.data.data.logo)
         setHeading(response.data.data.heading)
@@ -72,11 +71,6 @@ export default function AirdropForm() {
 
   const handleAddAPI = async () => {
     setIsLoading(true)
-    console.log("Add api called")
-    console.log(logo)
-    console.log(heading)
-    console.log(subHeading)
-    console.log('Add form started', id)
 
     const formdata = new FormData();
     formdata.append("logo", logo);
@@ -92,31 +86,33 @@ export default function AirdropForm() {
     fetch("https://rankterminal.com/growney/public/index.php/api/air-drop", requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        toast.success('Successfully added!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: 'Bounce',
-        })
+        // toast.success('Successfully added!', {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: 'Bounce',
+        // })
+        alert('Successfully added!')
         setIsLoading(false)
       })
       .catch((error) =>
-        toast.error("Cant't added data", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        })
+        // toast.error("Cant't added data", {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: Bounce,
+        // })
+        alert("Cant't added data")
       );
   }
 
@@ -144,7 +140,6 @@ export default function AirdropForm() {
     //     console.error('Error:', error);
     //   });
 
-    console.log(logo)
     setIsLoading(true)
 
     const formdata = new FormData();
@@ -158,7 +153,6 @@ export default function AirdropForm() {
     })
       .then(response => response.json())
       .then(updatedData => {
-        console.log(updatedData)
         setIsLoading(false)
       })
       .catch(error => console.error('Error updating data:', error));

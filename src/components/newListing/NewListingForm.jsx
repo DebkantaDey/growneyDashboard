@@ -16,6 +16,9 @@ export default function NewListingForm() {
     const [maxSupply, setMaxSupply] = useState('')
     const [backedBy, setBackedBy] = useState([])
     const [preview, setPreview] = useState('')
+    const [website, setWebsite] = useState('')
+    const [telegram, setTelegram] = useState('')
+    const [twitter, setTwitter] = useState('')
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +77,6 @@ export default function NewListingForm() {
     const getUser = () => {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/new-listing/${id}`)
             .then((response) => {
-                console.log(response.data.data)
                 setEditLogo(response.data.data.logo)
                 setName(response.data.data.name)
                 setDate(response.data.data.created_on)
@@ -98,15 +100,6 @@ export default function NewListingForm() {
 
     const handleAddRequest = async () => {
         setIsLoading(true)
-        console.log(logo)
-        console.log(name)
-        console.log(backedBy)
-        console.log(typeof backedBy)
-        console.log(backedBy.length)
-        console.log(date)
-        console.log(maxSupply)
-        console.log(network)
-        console.log(category)
         // let investors = [backedBy]
         // console.log(typeof investors)
         // for (let i = 0; i < backedBy.length; i++) {
@@ -162,6 +155,9 @@ export default function NewListingForm() {
         formdata.append("category", category);
         formdata.append("network", network);
         formdata.append("max_supply", maxSupply);
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
         // formdata.append("investors[]", backedBy);
         for (let i = 0; i < backedBy.length; i++) {
             formdata.append('investors[]', backedBy[i]);
@@ -176,60 +172,54 @@ export default function NewListingForm() {
             .then((response) => response.text())
             .then((result) => {
                 if(result.status==true){
-                    toast.success('Successfully added!', {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                        transition: 'Bounce',
-                    })
+                    // toast.success('Successfully added!', {
+                    //     position: "top-right",
+                    //     autoClose: 5000,
+                    //     hideProgressBar: false,
+                    //     closeOnClick: true,
+                    //     pauseOnHover: true,
+                    //     draggable: true,
+                    //     progress: undefined,
+                    //     theme: "light",
+                    //     transition: 'Bounce',
+                    // })
+                    alert("Successfully added.")
                 }
                 else{
-                    toast.error("An error occured.", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                        transition: 'Bounce',
-                    })
+                    // toast.error("An error occured.", {
+                    //     position: "top-right",
+                    //     autoClose: 5000,
+                    //     hideProgressBar: false,
+                    //     closeOnClick: true,
+                    //     pauseOnHover: true,
+                    //     draggable: true,
+                    //     progress: undefined,
+                    //     theme: "light",
+                    //     transition: 'Bounce',
+                    // })
+                    alert("Addition failed")
                 }
                 setIsLoading(false)
             })
             .catch((error) => {
-                toast.error(error, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: "Bounce",
-                })
+                // toast.error(error, {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: "Bounce",
+                // })
+                alert("Addition failed")
             });
 
     };
 
     const handlePutRequest = async () => {
         setIsLoading(true)
-        console.log(logo)
-        console.log(backedBy)
-        console.log(backedBy.length)
-        console.log(date)
-        console.log(category)
-        console.log(network)
-        console.log(maxSupply)
-        console.log(name)
-        console.log('Edit form started', id)
 
         // const formData = new FormData();
         // formData.append('logo', logo)
@@ -326,7 +316,6 @@ export default function NewListingForm() {
         })
             .then(response => response.json())
             .then(updatedData => {
-                console.log(updatedData)
                 setIsLoading(false)
             })
             .catch(error => console.error('Error updating data:', error));
@@ -351,9 +340,9 @@ export default function NewListingForm() {
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setWebsite(e.target.value)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setTwitter(e.target.value)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setTelegram(e.target.value)}/>
                     </div>
                 </div>
                 <div className='mb-3'>

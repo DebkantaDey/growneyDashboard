@@ -5,13 +5,15 @@ import { toast } from 'react-toastify';
 import { ColorRing } from 'react-loader-spinner'
 
 
-
 export default function EcoSystemForm() {
 
     const [logo, setLogo] = useState('')
     const [name, setName] = useState('')
     const [project, setProject] = useState('')
     const [preview, setPreview] = useState('')
+    const [website, setWebsite] = useState('')
+    const [telegram, setTelegram] = useState('')
+    const [twitter, setTwitter] = useState('')
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +27,14 @@ export default function EcoSystemForm() {
             case 'project':
                 setProject(e.target.value);
                 break;
-            default:
+            case 'website':
+                setWebsite(e.target.value);
+                break;
+            case 'twitter':
+                setTwitter(e.target.value);
+                break
+            case 'telegram':
+                setTelegram(e.target.value);
         }
     }
 
@@ -53,7 +62,6 @@ export default function EcoSystemForm() {
                 setEditLogo(response.data.data.logo)
                 setProject(response.data.data.project)
                 setName(response.data.data.name)
-                console.log(response)
                 setIsLoading(false)
             })
     };
@@ -67,12 +75,17 @@ export default function EcoSystemForm() {
         }
     };
 
+
+
     const handlePostRequest = (e) => {
         setIsLoading(true)
         const formdata = new FormData();
         formdata.append("logo", logo);
         formdata.append("name", name);
         formdata.append("project", project);
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
 
         const requestOptions = {
             method: "POST",
@@ -83,27 +96,25 @@ export default function EcoSystemForm() {
         fetch("https://rankterminal.com/growney/public/index.php/api/eco-system", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                toast.success('Successfully added!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: 'Bounce',
-                })
+                // toast.success('Successfully added!', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: 'Bounce',
+                // })
+                alert("Successfully added!")
                 setIsLoading(false)
             })
-            .catch((error) => console.error(error));
+            .catch((error) => alert("An error occured"));
     };
 
     const handlePutRequest = async () => {
-        console.log('Handle update request.')
-        console.log(logo)
-        console.log(name)
-        console.log(project)
+
         const formdata = new FormData();
         formdata.append("logo", logo);
         formdata.append("name", name);
@@ -115,7 +126,6 @@ export default function EcoSystemForm() {
             body: formdata,
         };
 
-        console.log('Edit form started', id)
         // fetch(`https://growney.in/growney/public/index.php/api/eco-system/${id}`, requestOptions)
         //     .then((response) => response.json())
         //     .then((data) => {
@@ -137,13 +147,12 @@ export default function EcoSystemForm() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('Response:', response.data);
             setIsLoading(false)
         } catch (error) {
-            console.error('Error uploading data:', error);
             setIsLoading(false)
         }
     };
+
     return (
 
         <div>
@@ -155,19 +164,19 @@ export default function EcoSystemForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Name</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('name', e)} value={name} name='name' placeholder='Enter the name'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('name', e)} value={name} name='name' placeholder='Enter the name' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here'/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here'/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)} />
                     </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} value={project} name='project' placeholder='Enter the project'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} value={project} name='project' placeholder='Enter the project' />
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

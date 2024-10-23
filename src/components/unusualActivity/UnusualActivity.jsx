@@ -35,31 +35,33 @@ export default function UnusualActivity() {
         method: "DELETE",
       });
       if (!response.ok) {
-        toast.error('Deletation failed', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: 'Bounce',
-        })
+        // toast.error('Deletation failed', {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: 'Bounce',
+        // })
+        LazyResult('Deletation failed')
         throw new Error("Failed to delete item");
       }
       else {
-        toast.success('Successfully deleted!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: 'Bounce',
-        })
+        // toast.success('Successfully deleted!', {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        //   transition: 'Bounce',
+        // })
+        LazyResult('Successfully deleted!')
       }
       setData(data.filter((item) => item.id !== id));
       setIsLoading(false)
@@ -117,15 +119,15 @@ export default function UnusualActivity() {
               </thead>
               <tbody>
                 {data?.map(item =>
-                  <tr className='text-white' key={item.id}>
+                  <tr className='text-white' key={item?.id}>
                     <td className="flex sticky left-0 gap-x-2.5 items-center pt-2 px-2.5 whitespace-nowrap cursor-auto bg-slate-600" style={{ minWidth: '180px' }} >
-                      <img src={item.logo} className="h-10 w-10 rounded-full"></img>
-                      <span className='whitespace-nowrap'>{item.project.length > 9 && screenSize.width > 1000 ?
-                        item.project.substring(0, 9) + "..." : item.project.length > 6 && screenSize.width < 1000 ? item.project.substring(0, 5) + "..." : item.project}</span>
+                      <img src={item?.logo} className="h-10 w-10 rounded-full"></img>
+                      <span className='whitespace-nowrap'>{item?.project.length > 9 && screenSize.width > 1000 ?
+                        item?.project.substring(0, 9) + "..." : item?.project.length > 6 && screenSize.width < 1000 ? item?.project.substring(0, 5) + "..." : item?.project}</span>
                     </td>
-                    <td><Socials/></td>
-                    <td className='whitespace-nowrap cursor-auto px-5' style={{ minWidth: '200px' }}>{item.activities}</td>
-                    <td className='text-left'><Link to={`/unusualActivityFrom/${item.id}`}><i className="fas fa-edit mr-2 text-green-600"></i></Link><i className="fa-solid fa-trash text-red-600" onClick={() => handelDelete(item.id)}></i></td>
+                    <td><Socials socials={item?.share}/></td>
+                    <td className='whitespace-nowrap cursor-auto px-5' style={{ minWidth: '200px' }}>{item?.activities}</td>
+                    <td className='text-left'><Link to={`/unusualActivityFrom/${item?.id}`}><i className="fas fa-edit mr-2 text-green-600"></i></Link><i className="fa-solid fa-trash text-red-600" onClick={() => handelDelete(item?.id)}></i></td>
                   </tr>
                 )}
               </tbody>
