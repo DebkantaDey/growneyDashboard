@@ -79,7 +79,7 @@ export default function NewListingForm() {
             .then((response) => {
                 setEditLogo(response.data.data.logo)
                 setName(response.data.data.name)
-                setDate(response.data.data.created_on)
+                //setDate(response.data.data.created_on)
                 setCategory(response.data.data.category)
                 setNetwork(response.data.data.network)
                 setMaxSupply(response.data.data.max_supply)
@@ -100,54 +100,6 @@ export default function NewListingForm() {
 
     const handleAddRequest = async () => {
         setIsLoading(true)
-        // let investors = [backedBy]
-        // console.log(typeof investors)
-        // for (let i = 0; i < backedBy.length; i++) {
-        //     investors.push(backedBy[i])
-        // }
-
-        // console.log(typeof investors)
-        // console.log(investors)
-        // fetch('https://growney.in/growney/public/index.php/api/new-listing', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ logo, name, date, category, network, maxSupply, backedBy }),
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('Success:', data);
-
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
-        // try {
-        //     setIsLoading(true);
-        //     await fetch('https://growney.in/growney/public/index.php/api/new-listing', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({logo, name, date, category, network, maxSupply, backedBy}),
-        //     })
-
-        //     .then((response) => {
-        //         console.log(response)
-        //       })
-        //       .then((data) => {
-        //         console.log(data)
-        //       })
-        //       .catch((error) => {
-        //         console.log(error)
-        //       })
-
-        // } catch (error) {
-        //     console.log(error.message);
-        // }
-
-
         const formdata = new FormData();
         formdata.append("logo", logo);
         formdata.append("name", name);
@@ -162,16 +114,14 @@ export default function NewListingForm() {
         for (let i = 0; i < backedBy.length; i++) {
             formdata.append('investors[]', backedBy[i]);
         }
-        
         const requestOptions = {
             method: "POST",
             body: formdata,
         };
-
         fetch("https://rankterminal.com/growney/public/index.php/api/new-listing", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                if(result.status==true){
+                if (result.status == true) {
                     // toast.success('Successfully added!', {
                     //     position: "top-right",
                     //     autoClose: 5000,
@@ -184,20 +134,6 @@ export default function NewListingForm() {
                     //     transition: 'Bounce',
                     // })
                     alert("Successfully added.")
-                }
-                else{
-                    // toast.error("An error occured.", {
-                    //     position: "top-right",
-                    //     autoClose: 5000,
-                    //     hideProgressBar: false,
-                    //     closeOnClick: true,
-                    //     pauseOnHover: true,
-                    //     draggable: true,
-                    //     progress: undefined,
-                    //     theme: "light",
-                    //     transition: 'Bounce',
-                    // })
-                    alert("Addition failed")
                 }
                 setIsLoading(false)
             })
@@ -335,27 +271,31 @@ export default function NewListingForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Name</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setName(e.target.value)} value={name} name='name' placeholder='Enter the name'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setName(e.target.value)} value={name} name='name' placeholder='Enter the name' />
+                </div>
+                <div className='mb-3'>
+                    <label htmlFor="" className='block text-white'>Date</label>
+                    <input type="date" className='block w-full py-2 px-2 rounded' onChange={(e) => setDate(e.target.value)} value={date} name='date' placeholder='Enter the date' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setWebsite(e.target.value)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setTwitter(e.target.value)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setTelegram(e.target.value)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setWebsite(e.target.value)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setTwitter(e.target.value)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setTelegram(e.target.value)} />
                     </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Category</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setCategory(e.target.value)} value={category} name='category' placeholder='Enter the category'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setCategory(e.target.value)} value={category} name='category' placeholder='Enter the category' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Network</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setNetwork(e.target.value)} value={network} name='network' placeholder='Enter the network'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setNetwork(e.target.value)} value={network} name='network' placeholder='Enter the network' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Max Supply</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setMaxSupply(e.target.value)} value={maxSupply} name='maxSupply' placeholder='Enter the max supply'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setMaxSupply(e.target.value)} value={maxSupply} name='maxSupply' placeholder='Enter the max supply' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Backed By/Investors</label>

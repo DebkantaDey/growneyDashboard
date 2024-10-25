@@ -107,8 +107,8 @@ export default function Header() {
   return (
     <>
       <div className='w-full bg-slate-400 h-16 flex justify-between'>
-        <i className="fa-solid fa-bars w-1/12 flex justify-center items-center text-xl cursor-pointer" style={{ display: screenSize.width < 1100 ? 'flex' : 'none' }} onClick={() => setSidebar(true)}></i>
-        <ul className=' flex items-center justify-center gap-5 w-11/12 text-lg ' style={{ display: upNav && screenSize.width > 1100 ? 'flex' : 'none' }}>
+        <i className="fa-solid fa-bars w-1/12 flex justify-center items-center text-xl cursor-pointer" style={{ display: screenSize.width < 1200 ? 'flex' : 'none' }} onClick={() => setSidebar(true)}></i>
+        <ul className=' flex items-center justify-center gap-5 w-11/12 text-lg ' style={{ display: upNav && screenSize.width > 1200 ? 'flex' : 'none' }}>
           {
             links.map((item, index) =>
               <Link to={item.to} key={index}><li className={`cursor-pointer px-1 py-2 whitespace-nowrap ${item.name == isActive ? 'font-bold text-blue-500' : ''}`}
@@ -118,7 +118,7 @@ export default function Header() {
         </ul>
 
       </div>
-      <div className='h-full bg-slate-400  absolute top-0 left-0 w-11/12 px-6 pt-20 hidden md:w-4/12 sm:w-6/12 z-10' style={{ display: sidebar && screenSize.width < 1100 ? 'block' : 'none' }}>
+      <div className='h-full bg-slate-400  absolute top-0 left-0 w-11/12 px-6 pt-20 hidden md:w-4/12 sm:w-6/12 z-10' style={{ display: sidebar && screenSize.width < 1200 ? 'block' : 'none' }}>
         <span className='text-2xl font-semibold absolute top-6 right-6 cursor-pointer' onClick={() => setSidebar(!sidebar)}>X</span>
         <ul className=' flex flex-col justify-start gap-5 w-full text-lg'>
           {

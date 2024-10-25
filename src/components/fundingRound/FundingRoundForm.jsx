@@ -297,7 +297,7 @@ export default function FundingRoundForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Stage/Rounds</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('stage', e)} name='rounds' value={stage} placeholder='Enter the stage/rounds' />
+                    <input type="number" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('stage', e)} name='rounds' value={stage} placeholder='Enter the stage/rounds' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Partners</label>

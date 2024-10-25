@@ -24,6 +24,7 @@ export default function NewListing() {
       .then((response) => {
         setData(response.data.data.collection);
         setIsLoading(false)
+        console.log(response.data.data.collection)
       })
   }, [])
 
@@ -130,7 +131,7 @@ export default function NewListing() {
                       item?.name.substring(0, 9) + "..." : item?.name.length > 6 && screenSize.width < 1000 ? item?.name.substring(0, 5) + "..." : item?.name}</span>
                     </td>
                     <td><Socials socials={item?.share}/></td>
-                    <td className='whitespace-nowrap cursor-auto px-5' style={{minWidth: 'auto'}}>{item?.created_on}</td>
+                    {/* <td className='whitespace-nowrap cursor-auto px-5' style={{minWidth: 'auto'}}>{item?.created_on}</td> */}
                     <td className=" whitespace-nowrap cursor-auto px-5" style={{minWidth: 'auto'}}><ImagesGroup images={item?.investors} /></td>
                     <td className='whitespace-nowrap cursor-auto px-5' style={{minWidth: 'auto'}}>{item?.category}</td>
                     <td className='whitespace-nowrap cursor-auto px-5' style={{minWidth: 'auto'}}>{item?.network}</td>
