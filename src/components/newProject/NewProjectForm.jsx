@@ -41,15 +41,15 @@ export default function NewProjectForm() {
             case 'investors':
                 setInvestors(e.target.value);
                 break;
-                case 'website':
-                    setWebsite(e.target.value);
-                    break;
-                case 'telegram':
-                    setTelegram(e.target.value);
-                    break;
-                case 'twitter':
-                    setTwitter(e.target.value);
-                    break;
+            case 'website':
+                setWebsite(e.target.value);
+                break;
+            case 'telegram':
+                setTelegram(e.target.value);
+                break;
+            case 'twitter':
+                setTwitter(e.target.value);
+                break;
         }
     }
 
@@ -69,7 +69,7 @@ export default function NewProjectForm() {
         }
     }, []);
 
-    const [editLogo, setEditLogo]=useState('')
+    const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
         axios
             .get(`https://rankterminal.com/growney/public/index.php/api/new-project/${id}`)
@@ -129,6 +129,16 @@ export default function NewProjectForm() {
                 //     transition: 'Bounce',
                 // })
                 alert('Successfully deleted!')
+                setLogo('')
+                setPreview('')
+                setProject('');
+                setCategory('');
+                setTotalRaise('');
+                setRound('');
+                setInvestors('');
+                setWebsite('');
+                setTelegram('');
+                setTwitter('');
                 setIsLoading(false)
             })
             .catch((error) =>
@@ -181,31 +191,31 @@ export default function NewProjectForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)} />
                     </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Category</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('category', e)} name='category' value={category} placeholder='Enter the category'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('category', e)} name='category' value={category} placeholder='Enter the category' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Total Raise</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('totalRaise', e)} name='totalRaise' value={totalRaise} placeholder='Enter the total raise'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('totalRaise', e)} name='totalRaise' value={totalRaise} placeholder='Enter the total raise' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Round</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('round', e)} name='round' value={round} placeholder='Enter the round'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('round', e)} name='round' value={round} placeholder='Enter the round' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>	Investors</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('investors', e)} name='investors' value={investors} placeholder='Enter the investors'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('investors', e)} name='investors' value={investors} placeholder='Enter the investors' />
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

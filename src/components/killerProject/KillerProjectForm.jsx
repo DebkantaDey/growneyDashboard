@@ -109,6 +109,13 @@ export default function UnusualActivityFrom() {
                 //     transition: 'Bounce',
                 // })
                 alert('Successfully added!')
+                setLogo('')
+                setPreview('')
+                setProject('');
+                setActivities('');
+                setWebsite('');
+                setTelegram('');
+                setTwitter('');
                 setIsLoading(false)
             })
             .catch((error) =>

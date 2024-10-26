@@ -140,6 +140,18 @@ export default function FundingRoundForm() {
                 //     transition: 'Bounce',
                 // })
                 alert('Successfully added!')
+                setLogo('')
+                setPreview('')
+                setDate('');
+                setProject('');
+                setStage('');
+                setPartners('');
+                setInvestors('');
+                setRaised('');
+                setCategory('');
+                setWebsite('');
+                setTelegram('');
+                setTwitter('');
                 setIsLoading(false)
             })
             .catch((error) =>

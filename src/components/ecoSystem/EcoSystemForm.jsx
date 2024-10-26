@@ -108,6 +108,13 @@ export default function EcoSystemForm() {
                 //     transition: 'Bounce',
                 // })
                 alert("Successfully added!")
+                setLogo('')
+                setName('');
+                setProject('');
+                setPreview('')
+                setWebsite('');
+                setTwitter('');
+                setTelegram('');
                 setIsLoading(false)
             })
             .catch((error) => alert("An error occured"));

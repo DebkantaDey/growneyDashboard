@@ -28,15 +28,15 @@ export default function UnusualActivityFrom() {
             case 'activities':
                 setActivities(e.target.value);
                 break;
-                case 'website':
-                    setWebsite(e.target.value);
-                    break;
-                case 'telegram':
-                    setTelegram(e.target.value);
-                    break;
-                case 'twitter':
-                    setTwitter(e.target.value);
-                    break;
+            case 'website':
+                setWebsite(e.target.value);
+                break;
+            case 'telegram':
+                setTelegram(e.target.value);
+                break;
+            case 'twitter':
+                setTwitter(e.target.value);
+                break;
         }
     }
 
@@ -55,7 +55,7 @@ export default function UnusualActivityFrom() {
         }
     }, []);
 
-    const [editLogo, setEditLogo]=useState('')
+    const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/unusual-activity/${id}`)
             .then((item) => {
@@ -108,6 +108,13 @@ export default function UnusualActivityFrom() {
                 //     transition: 'Bounce',
                 // })
                 alert('Successfully added!')
+                setLogo('')
+                setPreview('')
+                setProject('');
+                setActivities('');
+                setWebsite('');
+                setTelegram('');
+                setTwitter('');
                 setIsLoading(false)
             })
             .catch((error) =>
@@ -157,19 +164,19 @@ export default function UnusualActivityFrom() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('project', e)} name='project' value={project} placeholder='Enter the project' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)} />
                     </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Activities</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('activities', e)} name='activities' value={activities} placeholder='Enter the activities'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('activities', e)} name='activities' value={activities} placeholder='Enter the activities' />
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

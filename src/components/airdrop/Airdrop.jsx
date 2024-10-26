@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { ColorRing } from 'react-loader-spinner'
-
+import Socials from '../socials/Socials';
 
 export default function Airdrop() {
 
@@ -105,6 +105,9 @@ export default function Airdrop() {
                                             </div>
                                         </figcaption>
                                     </div>
+                                </div>
+                                <div className='flex justify-center items-center mb-5'>
+                                    <Socials socials={item?.share}/>
                                 </div>
                             </figure>
                         )}

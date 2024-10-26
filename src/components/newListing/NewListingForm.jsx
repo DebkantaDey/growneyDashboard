@@ -135,6 +135,16 @@ export default function NewListingForm() {
                     // })
                     alert("Successfully added.")
                 }
+                setLogo('')
+                setPreview('')
+                setDate('')
+                setCategory('')
+                setNetwork('')
+                setMaxSupply('')
+                setBackedBy([])
+                setWebsite('')
+                setTelegram('')
+                setTwitter('')
                 setIsLoading(false)
             })
             .catch((error) => {

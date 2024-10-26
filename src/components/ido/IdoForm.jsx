@@ -127,6 +127,16 @@ export default function IdoForm() {
                 //     transition: 'Bounce',
                 // })
                 alert('Successfully added!')
+                setLogo('')
+                setPreview('')
+                setProject('');
+                setBackedby('');
+                setPartners('');
+                setCoin('');
+                setAudits('');
+                setWebsite('');
+                setTwitter('');
+                setTelegram('');
                 setIsLoading(false)
             })
             .catch((error) =>

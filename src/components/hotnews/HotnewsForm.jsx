@@ -12,6 +12,9 @@ export default function HotnewsForm() {
     const [subHeading, setSubHeading] = useState('')
     const [loading, setLoading] = useState(false)
     const [preview, setPreview] = useState('')
+    const [website, setWebsite] = useState('')
+    const [telegram, setTelegram] = useState('')
+    const [twitter, setTwitter] = useState('')
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +30,15 @@ export default function HotnewsForm() {
             case 'subHeading':
                 setSubHeading(e.target.value);
                 break;
-            default:
+            case 'website':
+                setWebsite(e.target.value);
+                break;
+            case 'twitter':
+                setTwitter(e.target.value);
+                break
+            case 'telegram':
+                setTelegram(e.target.value);
+                break
         }
     }
 
@@ -49,7 +60,7 @@ export default function HotnewsForm() {
         }
     }, []);
 
-    const [editLogo, setEditLogo]=useState('')
+    const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/hot-news/${id}`)
             .then((response) => {
@@ -75,7 +86,9 @@ export default function HotnewsForm() {
         formdata.append("logo", logo);
         formdata.append("heading", heading);
         formdata.append("sub_heading", subHeading);
-
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
 
         const requestOptions = {
             method: "POST",
@@ -98,6 +111,13 @@ export default function HotnewsForm() {
                 //     transition: 'Bounce',
                 // })
                 alert('Successfully added!')
+                setLogo('')
+                setPreview('')
+                setHeading('');
+                setSubHeading('');
+                setWebsite('');
+                setTwitter('');
+                setTelegram('');
                 setIsLoading(false)
             })
             .catch((error) =>
@@ -147,11 +167,19 @@ export default function HotnewsForm() {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Heading</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('heading', e)} name='heading' value={heading} placeholder='Enter the heading'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('heading', e)} name='heading' value={heading} placeholder='Enter the heading' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Sub Heading</label>
-                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('subHeading', e)} name='subHeading' value={subHeading} placeholder='Enter the subheading'/>
+                    <input type="text" className='block w-full py-2 px-2 rounded' onChange={(e) => setData('subHeading', e)} name='subHeading' value={subHeading} placeholder='Enter the subheading' />
+                </div>
+                <div className='mb-3'>
+                    <label htmlFor="" className='block text-white'>Socials</label>
+                    <div className='flex justify-between items-center gap-1'>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)} />
+                    </div>
                 </div>
                 <button className='block mx-auto py-3 bg-white px-8 rounded hover:shadow-x mt-4' type='submit'>Submit</button>
             </form>

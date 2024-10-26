@@ -25,7 +25,6 @@ export default function FundingRound() {
       .then((response) => {
         setData(response.data.data.collection);
         setIsLoading(false)
-        console.log(response.data.data.collection)
       })
   }, [])
 

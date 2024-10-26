@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { ColorRing } from 'react-loader-spinner'
+import Socials from '../socials/Socials'
 
 export default function Hotnews() {
 
@@ -92,17 +93,20 @@ export default function Hotnews() {
                                     <Link to={`/hot-news-form/${item.id}`}><i className="fas fa-edit mr-2 text-green-600"></i></Link>
                                 </div>
                                 <div className='w-full flex justify-between items-center px-3'>
-                                <img className="w-16 h-16 rounded-full mx-auto mt-3" src={item.logo} alt="" width="384" height="512" />
-                                <div className="pt-6 md:p-8 text-center md:text-left space-y-4">
-                                    <figcaption className="font-medium">
-                                        <div className="text-sky-500 dark:text-sky-400">
-                                            {item.heading}
-                                        </div>
-                                        <div className="text-black">
-                                            {item.sub_heading}
-                                        </div>
-                                    </figcaption>
+                                    <img className="w-16 h-16 rounded-full mx-auto mt-3" src={item.logo} alt="" width="384" height="512" />
+                                    <div className="pt-6 md:p-8 text-center md:text-left space-y-4">
+                                        <figcaption className="font-medium">
+                                            <div className="text-sky-500 dark:text-sky-400">
+                                                {item.heading}
+                                            </div>
+                                            <div className="text-black">
+                                                {item.sub_heading}
+                                            </div>
+                                        </figcaption>
+                                    </div>
                                 </div>
+                                <div className='flex justify-center items-center mb-5'>
+                                    <Socials socials={item?.share}/>
                                 </div>
                             </figure>
                         )}
