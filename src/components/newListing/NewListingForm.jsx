@@ -77,13 +77,17 @@ export default function NewListingForm() {
     const getUser = () => {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/new-listing/${id}`)
             .then((response) => {
-                setEditLogo(response.data.data.logo)
+                setLogo(response.data.data.logo)
+                setPreview(response.data.data.logo)
                 setName(response.data.data.name)
                 //setDate(response.data.data.created_on)
                 setCategory(response.data.data.category)
                 setNetwork(response.data.data.network)
                 setMaxSupply(response.data.data.max_supply)
                 setBackedBy(response.data.data.investors)
+                setTelegram(response.data.data.share.telegram)
+                setWebsite(response.data.data.share.website)
+                setTwitter(response.data.data.share.twitter)
                 setIsLoading(false)
             })
     };
@@ -94,7 +98,7 @@ export default function NewListingForm() {
         if (id === '' || id === null || id === 0 || id == undefined) {
             handleAddRequest();
         } else {
-            handlePutRequest();
+            handleUpdateRequest();
         }
     };
 
@@ -164,120 +168,87 @@ export default function NewListingForm() {
 
     };
 
-    const handlePutRequest = async () => {
+
+    //**********Convert images link to file start***********//
+    const urlToFile = async (url, filename, mimeType) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return new File([blob], filename, { type: mimeType });
+    };
+    //**********Convert images link to file end***********//
+
+
+    //***********Handle Update form start**************//
+    const handleUpdateRequest = async () => {
         setIsLoading(true)
-
-        // const formData = new FormData();
-        // formData.append('logo', logo)
-        // formData.append('name', name);
-        // formData.append('date', date);
-        // for (let i = 0; i < backedBy.length; i++) {
-        //     formData.append('backedBy', backedBy[i]);
-        // }
-        // formData.append('category', category);
-        // formData.append('network', network);
-        // formData.append('maxSupply', maxSupply);
-
-        // fetch(`https://growney.in/growney/public/index.php/api/new-listing/${id}`, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     },
-        //     body: JSON.stringify(formData),
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('Success:', data);
-        //         // Reset form and state after successful PUT request
-        //         setLogo('')
-        //         setName('')
-        //         setDate('')
-        //         setCategory('')
-        //         setNetwork('')
-        //         setMaxSupply('')
-        //         setBackedBy([])
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
-
-
-        // fetch(`https://growney.in/growney/public/index.php/api/new-listing/${id}`, {
-        //     method: "PUT",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(formData),
-        // })
-        //     .then((response) => {
-        //         console.log(response)
-        //     })
-        //     .then((data) => {
-        //         console.log(data)
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     })
-
-
         const formdata = new FormData();
-        formdata.append("logo", logo);
         formdata.append("name", name);
         formdata.append("created_on", date);
         formdata.append("category", category);
         formdata.append("network", network);
         formdata.append("max_supply", maxSupply);
-        // backedBy.forEach((image, index) => {
-        //     // formdata.append(index, image);
-        //     formdata.append(`investors`, image);
-        // });
-        formdata.append("investors", backedBy)
+        formdata.append("_method", "PUT");
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
 
+        // Append main image if it was changed
+        if (logo instanceof File) {
+            formdata.append("logo", logo);
+        } else {
+            // Convert existing image URL to a File and append
+            const imageFile = await urlToFile(logo, "main-image.jpg", "image/jpeg");
+            formdata.append("logo", imageFile);
+        }
 
-
-        // fetch(`https://growney.in/growney/public/index.php/api/new-listing/${id}`, requestOptions)
-        //     .then((response) => response.text())
-        //     .then((result) => console.log(result))
-        //     .catch((error) => console.error(error));
-
-        // const config = { headers: { 'Content-Type': 'multipart/form-data' } }
-
-        // try {
-        //     await axios.put(`https://growney.in/growney/public/index.php/api/new-listing/${id}`, formdata, config)
-        //     .then((response)=>{
-        //         console.log(response)
-        //     })
-        //     .catch((err)=>{
-        //         console.log(err)
-        //     })
-        // }
-        // catch (err) {
-        //     console.log(err);
-        // }
-
-
-        fetch(`https://rankterminal.com/growney/public/index.php/api/new-listing/${id}`, {
-            method: 'PUT', // or 'POST' depending on the API
-            body: formdata
-        })
-            .then(response => response.json())
-            .then(updatedData => {
-                setIsLoading(false)
+        // Handle image group (multiple images)
+        const imageGroupFiles = await Promise.all(
+            backedBy.map(async (img, index) => {
+                if (img instanceof File) {
+                    // If a new file is uploaded, return it
+                    return img;
+                } else {
+                    // Convert URL to File if it's an existing image URL
+                    return await urlToFile(img, `image-${index}.jpg`, "image/jpeg");
+                }
             })
-            .catch(error => console.error('Error updating data:', error));
+        );
 
+        // Append each image in imageGroupFiles to FormData
+        imageGroupFiles.forEach((file, index) => {
+            formdata.append(`investors[${index}]`, file);
+        });
 
+        const requestOptions = {
+            method: "POST",
+            body: formdata,
+            redirect: "follow"
+        };
 
-
+        fetch(`https://rankterminal.com/growney/public/index.php//api/new-listing/${id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+                alert("Successfully updated")
+                console.log(result)
+                setIsLoading(false)
+            }
+            )
+            .catch((error) => {
+                alert("Update failed")
+                console.log(error)
+                setIsLoading(false)
+            });
     };
+    //*************Handle Update form end************//
 
     return (
         <div>
             <form action="" className=' w-11/12 md:w-9/12 bg-red-800 items-center mx-auto px-10 md:px-20 py-4 rounded mt-5' onSubmit={handleSubmit}>
-                <div className='mb-3 flex'>
+                <div className='mb-3 md:flex'>
                     <label htmlFor="" className='block text-white'>Logo</label>
                     <input type="file" className='block text-white w-56' onChange={handleImageChange} name='logo' />
-                    {preview !== '' ? <img src={preview} alt="" className='h-18 w-32' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""}
+                    <img src={preview} alt="" className='h-16 w-16 md:w-20 md:h-20 mt-2 md:mt-0' />
+                    {/* {preview !== '' ? <img src={preview} alt="" className='h-18 w-32' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""} */}
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Name</label>
@@ -310,9 +281,9 @@ export default function NewListingForm() {
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Backed By/Investors</label>
                     <input type="file" className='block text-white w-56' multiple onChange={handleFileChange} name='backedby' accept=".jpeg,.jpg,.png,.gif" />
-                    <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 items-center gap-10 mt-5'>
+                    <div className='grid grid-cols-3 md:grid-cols-5 lg:grid-cols-12 items-center gap-2 mt-5'>
                         {backedBy?.map((item, index) =>
-                            <img src={id === undefined ? URL.createObjectURL(backedBy[index]) : item} className='w-20 h-20' key={index} />
+                            <img src={id === undefined ? URL.createObjectURL(backedBy[index]) : item} className='h-16 w-16 md:w-20 md:h-20' key={index} />
                         )}
                     </div>
                 </div>

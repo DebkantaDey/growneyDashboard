@@ -70,8 +70,6 @@ export default function FundingRoundForm() {
     };
 
 
-
-
     useEffect(() => {
         if (id !== undefined) {
             setIsLoading(true)
@@ -79,19 +77,21 @@ export default function FundingRoundForm() {
         }
     }, []);
 
-    const [editLogo, setEditLogo] = useState('')
     const getUser = () => {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`)
             .then((response) => {
-                setUser(response.data.data.collection);
+                //setUser(response.data.data.collection);
                 setCategory(response.data.data.category)
                 setDate(response.data.data.created_on)
                 setInvestors(response.data.data.investors)
-                setEditLogo(response.data.data.logo)
+                setPreview(response.data.data.logo)
                 setPartners(response.data.data.partners)
                 setProject(response.data.data.project)
                 setRaised(response.data.data.raised)
                 setStage(response.data.data.rounds)
+                setTelegram(response.data.data.share.telegram)
+                setWebsite(response.data.data.share.website)
+                setTwitter(response.data.data.share.twitter)
                 setIsLoading(false)
             })
     };
@@ -101,7 +101,7 @@ export default function FundingRoundForm() {
         if (id == '' || id == null || id == 0 || id == undefined) {
             handlePostRequest();
         } else {
-            handlePutRequest();
+            handleUpdateRequest();
         }
     };
 
@@ -167,129 +167,67 @@ export default function FundingRoundForm() {
                 //     transition: 'Bounce',
                 // })
                 alert("Cant't added data")
-                );
+            );
     };
 
-    const handlePutRequest = async () => {
 
+
+    //**********Convert images link to file start***********//
+    const urlToFile = async (url, filename, mimeType) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return new File([blob], filename, { type: mimeType });
+    };
+    //**********Convert images link to file end***********//
+
+
+    //***********Handle Update form start**************//
+    const handleUpdateRequest = async () => {
         setIsLoading(true)
-
         const formdata = new FormData();
-        if (logo !== '') {
-            formdata.append("logo", logo);
-        }
-        else {
-            formdata.append("logo", editLogo);
-        }
-        formdata.append("created_on", date)
+        formdata.append("created_on", date);
         formdata.append("project", project);
         formdata.append("rounds", stage);
         formdata.append("partners", partners);
         formdata.append("investors", investors);
         formdata.append("raised", raised);
-        formdata.append("category", category)
+        formdata.append("category", category);
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
+        formdata.append("_method", "PUT");
+        // Append main image
+        if (logo instanceof File) {
+            formdata.append("logo", logo); // New file uploaded
+        } else if (logo) {
+            // Existing image URL, convert to File
+            const imageFile = await urlToFile(logo, "main-image.jpg", "image/jpeg");
+            formdata.append("logo", imageFile);
+        }
+        const requestOptions = {
+            method: "POST",
+            body: formdata,
+            redirect: "follow",
+        };
 
-
-
-        // fetch(`https://growney.in/growney/public/index.php/api/funding-round/${id}`, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //     },
-        //     body: JSON.stringify(formdata),
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('Success:', data);
-        //         // Reset form and state after successful PUT request
-        //         setLogo('')
-        //         setDate('')
-        //         setProject('')
-        //         setStage('')
-        //         setPartners('')
-        //         setInvestors('')
-        //         setRaised('')
-        //         setCategory('')
-        //         setIsLoading(false)
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //         setIsLoading(false)
-        //     });
-
-        // const requestOptions = {
-        //     method: "PUT",
-        //     body: formdata,
-        //     redirect: "follow"
-        // };
-
-        // fetch(`https://growney.in/growney/public/index.php/api/funding-round/${id}`, requestOptions)
-        //     .then((response) => response.json())
-        //     .then((result) => {
-        //         console.log(result);
-        //         setIsLoading(false)
-        //     }
-        //     )
-        //     .catch((error) => {
-        //         console.error(error)
-        //         setIsLoading(false)
-        //     });
-
-
-
-        // fetch(`https://growney.in/growney/public/index.php/api/funding-round/${id}`, {
-        //     method: 'PUT',
-        //     body: formdata,
-        // })
-        //     .then((res) => {
-        //         res.json();
-        //     })
-        //     .then((res) => {
-        //         console.log(res)
-        //         setIsLoading(false)
-        //     })
-        //     .catch((err) => {
-        //         console.log(err)
-        //         setIsLoading(false)
-        //     })
-
-        // const result = await response.json();
-        // console.log(result)
-        // if(result.status){
-        //     console.log("Data submitted")
-        // }
-        // else{
-        //     alert("Failed to fetch")
-        // }
-        // alert('Data updated successfully!');
-        // setIsLoading(false)
-
-        axios.post(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`, formdata, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .then(response => {
-                if (response) {
-                    alert('Data updated successfully!');
-                } else {
-                    alert('There was an error updating the data.');
-                }
+        fetch(`https://rankterminal.com/growney/public/index.php/api/funding-round/${id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+                setIsLoading(false)
             })
-            .catch(error => {
-                console.error('There was an error submitting the form!', error);
+            .catch((error) => {
+                setIsLoading(false)
             });
-
-
-
     };
+    //*************Handle Update form end************//
     return (
         <div>
             <form action="" className='w-11/12 md:w-9/12 bg-red-800 items-center mx-auto px-10 md:px-20 py-4 rounded mt-5' onSubmit={handleSubmit}>
                 <div className='mb-3 block md:flex'>
                     <label htmlFor="" className='block text-white'>Logo</label>
                     <input type="file" className='block text-white w-56' onChange={handleImageChange} name='logo' id='logo' />
-                    {preview !== '' ? <img src={preview} alt="" className='h-18 w-32 mt-5 md:mt-0' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""}
+                    <img src={preview} alt="" className='h-16 w-16 md:w-20 md:h-20 mt-2 md:mt-0' />
+                    {/* {preview !== '' ? <img src={preview} alt="" className='h-18 w-32 mt-5 md:mt-0' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""} */}
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
@@ -298,9 +236,9 @@ export default function FundingRoundForm() {
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)} />
                     </div>
                 </div>
                 <div className='mb-3'>

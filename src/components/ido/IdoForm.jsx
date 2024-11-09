@@ -74,12 +74,15 @@ export default function IdoForm() {
     const getUser = () => {
         axios.get(`https://rankterminal.com/growney/public/index.php/api/ido-ieo/${id}`)
             .then((response) => {
-                setEditLogo(response.data.data.logo)
+                setPreview(response.data.data.logo)
                 setAudits(response.data.data.audits)
                 setBackedby(response.data.data.backed_by)
                 setCoin(response.data.data.coin_token_sale_partner)
                 setPartners(response.data.data.partners)
                 setProject(response.data.data.project)
+                setTelegram(response.data.data.share.telegram)
+                setWebsite(response.data.data.share.website)
+                setTwitter(response.data.data.share.twitter)
                 setIsLoading(false)
             })
     };
@@ -89,7 +92,7 @@ export default function IdoForm() {
         if (id === '' || id === null || id === 0 || id == undefined) {
             handlePostRequest();
         } else {
-            handlePutRequest();
+            handleUpdateRequest();
         }
     };
 
@@ -155,45 +158,63 @@ export default function IdoForm() {
             );
     };
 
-    const handlePutRequest = () => {
+    //**********Convert images link to file start***********//
+    const urlToFile = async (url, filename, mimeType) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return new File([blob], filename, { type: mimeType });
+    };
+    //**********Convert images link to file end***********//
+
+
+    //***********Handle Update form start**************//
+    const handleUpdateRequest = async () => {
         setIsLoading(true)
         const formdata = new FormData();
-        formdata.append("logo", logo)
-        formdata.append("project", project)
-        formdata.append("backed_by", backedby)
-        formdata.append("partners", partners)
-        formdata.append("coin_token_sale_partner", coin)
-        formdata.append("audits", audits)
+        formdata.append("project", project);
+        formdata.append("backed_by", backedby);
+        formdata.append("partners", partners);
+        formdata.append("coin_token_sale_partner", coin);
+        formdata.append("audits", audits);
+        formdata.append("_method", "PUT");
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
+        // Append main image
+        if (logo instanceof File) {
+            formdata.append("logo", logo); // New file uploaded
+        } else if (logo) {
+            // Existing image URL, convert to File
+            const imageFile = await urlToFile(logo, "main-image.jpg", "image/jpeg");
+            formdata.append("logo", imageFile);
+        }
+        const requestOptions = {
+            method: "POST",
+            body: formdata,
+            redirect: "follow",
+        };
 
-        fetch(`https://rankterminal.com/growney/public/index.php/api/ido-ieo/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-            body: formdata
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // Reset form and state after successful PUT request
-                setLogo('')
-                setProject('')
-                setBackedby('')
-                setPartners('')
-                setCoin('')
-                setAudits('')
+        fetch(`https://rankterminal.com/growney/public/index.php/api/ido-ieo/${id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
                 setIsLoading(false)
+                console.log(result)
             })
             .catch((error) => {
-                console.error('Error:', error);
+                setIsLoading(false)
+                console.error(error)
             });
     };
+    //*************Handle Update form end************//
+    
     return (
         <div>
             <form action="" className='w-11/12 md:w-9/12 bg-red-800 items-center mx-auto px-10 md:px-20 py-4 rounded mt-5' onSubmit={handleSubmit} encType="multipart/form-data">
-                <div className='mb-3 flex'>
+                <div className='mb-3 md:flex'>
                     <label htmlFor="" className='block text-white'>Logo</label>
                     <input type="file" className='block text-white w-56' onChange={handleImageChange} name='logo' />
-                    {preview !== '' ? <img src={preview} alt="" className='h-18 w-32' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""}
+                    <img src={preview} alt="" className='h-16 w-16 md:w-20 md:h-20 mt-2 md:mt-0' />
+                    {/* {preview !== '' ? <img src={preview} alt="" className='h-18 w-32' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""} */}
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
@@ -202,9 +223,9 @@ export default function IdoForm() {
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Socials</label>
                     <div className='flex justify-between items-center gap-1'>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)}/>
-                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)}/>
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Website link here' value={website} onChange={(e) => setData('website', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Twitter link here' value={twitter} onChange={(e) => setData('twitter', e)} />
+                        <input type="text" className='block w-4/12 py-2 px-2 rounded' placeholder='Telegram link here' value={telegram} onChange={(e) => setData('telegram', e)} />
                     </div>
                 </div>
                 <div className='mb-3'>

@@ -74,13 +74,17 @@ export default function NewProjectForm() {
         axios
             .get(`https://rankterminal.com/growney/public/index.php/api/new-project/${id}`)
             .then((item) => {
-                setEditLogo(item.data.data.logo)
+                setIsLoading(false)
+                console.log(item)
+                setPreview(item.data.data.logo)
                 setProject(item.data.data.project)
                 setCategory(item.data.data.category)
-                setTotalRaise(item.data.data.totalRaise)
+                setTotalRaise(item.data.data.total_raise)
                 setRound(item.data.data.round)
                 setInvestors(item.data.data.investors)
-                setIsLoading(false)
+                setTelegram(item.data.data.share.telegram)
+                setWebsite(item.data.data.share.website)
+                setTwitter(item.data.data.share.twitter)
             })
             .catch((err) => {
             });
@@ -91,7 +95,7 @@ export default function NewProjectForm() {
         if (id === '' || id === null || id === 0 || id === undefined) {
             handleAddRequest();
         } else {
-            handleEditRequest();
+            handleUpdateRequest();
         }
     };
 
@@ -157,37 +161,61 @@ export default function NewProjectForm() {
             );
     };
 
-    const handleEditRequest = () => {
+
+    //**********Convert images link to file start***********//
+    const urlToFile = async (url, filename, mimeType) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return new File([blob], filename, { type: mimeType });
+    };
+    //**********Convert images link to file end***********//
+
+
+    //***********Handle Update form start**************//
+    const handleUpdateRequest = async () => {
         setIsLoading(true)
-        fetch(`https://rankterminal.com/growney/public/index.php/api/new-project/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ logo, project, category, totalRaise, round, investors }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // Reset form and state after successful PUT request
-                setLogo('')
-                setProject('')
-                setCategory('')
-                setTotalRaise('')
-                setRound('')
-                setInvestors('')
+        const formdata = new FormData();
+        formdata.append("_method", "PUT");
+        formdata.append("project", project);
+        formdata.append("category", category);
+        formdata.append("total_raise", totalRaise);
+        formdata.append("round", round);
+        formdata.append("investors", investors);
+        formdata.append("share[telegram]", telegram);
+        formdata.append("share[website]", website);
+        formdata.append("share[twitter]", twitter);
+        // Append main image
+        if (logo instanceof File) {
+            formdata.append("logo", logo); // New file uploaded
+        } else if (logo) {
+            // Existing image URL, convert to File
+            const imageFile = await urlToFile(logo, "main-image.jpg", "image/jpeg");
+            formdata.append("logo", imageFile);
+        }
+        const requestOptions = {
+            method: "POST",
+            body: formdata,
+            redirect: "follow",
+        };
+
+        fetch(`https://rankterminal.com/growney/public/index.php/api/new-project/${id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
                 setIsLoading(false)
             })
             .catch((error) => {
-                console.error('Error:', error);
+                setIsLoading(false)
             });
     };
+    //*************Handle Update form end************//
     return (
         <div>
             <form action="" className='w-11/12 md:w-9/12 bg-red-800 items-center mx-auto px-10 md:px-20 py-4 rounded mt-5' onSubmit={handleSubmit} encType="multipart/form-data">
-                <div className='mb-3 flex'>
+                <div className='mb-3 md:flex'>
                     <label htmlFor="" className='block text-white'>Logo</label>
                     <input type="file" className='block text-white w-56' onChange={handleImageChange} name='logo' />
-                    {preview !== '' ? <img src={preview} alt="" className='h-18 w-32' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""}
+                    <img src={preview} alt="" className='h-16 w-16 md:w-20 md:h-20 mt-2 md:mt-0' />
+                    {/* {preview !== '' ? <img src={preview} alt="" className='h-18 w-32' /> : id !== undefined ? <img src={editLogo} alt="" className='h-18 w-32' /> : ""} */}
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="" className='block text-white'>Project</label>
